@@ -76,19 +76,17 @@ function Game({puzzleOftheDay}) {
                 en yakın 100. kelimenin benzerlik skoru {distanceToHundredthClosest}.</p>
             </div>
 
-            <div className="p-6">
-                <input value={inputValue} onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleEnter}
-                type="text" placeholder="Tahmin"
-                className="rounded-full text-center	w-70 px-48 py-2 border-gray-300"
-                />
-                <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 mx-6 rounded-full"
-                onClick={() => handleGuess()}>Tahmin et</button>
+            <div className="mt-6 mb-6 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
+                <input type="text" className="text-center w-full md:w-7/12 max-w-md px-4 py-2 rounded-full border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Tahmin" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleEnter}/>
+                <button className="w-full md:w-3/12 max-w-xs px-4 py-2 rounded-full bg-blue-500 text-white font-medium
+                 hover:bg-blue-600 transition-colors duration-300" onClick={() => handleGuess()}>
+                    Tahmin et
+                </button>
             </div>
 
             {!isGuessValid && (
-                <p className="py-4 font-bold"> Kelime geçerli değil.</p>
+                <p className="mb-4 font-bold"> Kelime geçerli değil.</p>
             )}
 
             {isGuessCorrect && (
@@ -114,20 +112,22 @@ function Game({puzzleOftheDay}) {
                         </td>
                         <td className="border px-4 py-2">
                             {item.rank <= 1000 && (
-                                <div className="h-6 bg-gray-600 w-full">
+                                <div className="mx-1 h-6 bg-gray-600 w-full">
                                         <div
                                         className="bg-blue-500 h-6"
                                         style={{ width: `${((1000 - item.rank) / 1000) * 100}%` }}
                                         >
-                                            {1000 - item.rank}/1000
+                                            <div className="mx-1">
+                                                {1000 - item.rank}/1000
+                                            </div>
                                         </div>
                                 </div>
                             )}
                             {item.rank <= 5000 && item.rank > 1000 && (
-                                <div className="w-full">Orta uzaklıkta</div>
+                                <div className="w-full mx-2">Orta uzaklıkta</div>
                             )}
                             {item.rank > 5000 && (
-                                <div className="w-full">Uzak</div>
+                                <div className="w-full mx-2">Uzak</div>
                             )}
                         </td>
                     </tr>
