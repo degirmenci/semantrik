@@ -27,40 +27,39 @@ function Game({puzzleOftheDay}) {
     }
   
     const handleGuess = () => {
-        // Lower case and trim
-        inputValue = inputValue.toLowerCase().trim();
+        let inputValueLowerCase = inputValue.toLowerCase().trim()
 
-        if (inputValue === puzzleWord) {
+        if (inputValueLowerCase === puzzleWord) {
             setIsGuessCorrect(true);
             setInputValue('');
-            let newGuesses = [...guesses, {guessNumber: guessNumber, word: inputValue, distance: 100.0, rank: 0}]
+            let newGuesses = [...guesses, {guessNumber: guessNumber, word: inputValueLowerCase, distance: 100.0, rank: 0}]
             newGuesses = newGuesses.sort((a, b) => b.distance - a.distance)
             setGuesses(newGuesses);
-            setGuessWords({...guessWords, [inputValue]: true});
+            setGuessWords({...guessWords, [inputValueLowerCase]: true});
             setGuessNumber(guessNumber + 1);
             setInputValue('');
             return
         }
 
-        if (!inputValue | !(inputValue in similarWords)) {
+        if (!inputValueLowerCase | !(inputValueLowerCase in similarWords)) {
             setIsGuessValid(false);
             setInputValue('');
             return
         }
         setIsGuessValid(true);
 
-        if (inputValue in guessWords) {
+        if (inputValueLowerCase in guessWords) {
             setInputValue('');
             return
         }
 
-        const guessDistance = similarWords[inputValue]['distance']
-        const guessRank = similarWords[inputValue]['rank']
+        const guessDistance = similarWords[inputValueLowerCase]['distance']
+        const guessRank = similarWords[inputValueLowerCase]['rank']
 
-        let newGuesses = [...guesses, {guessNumber: guessNumber, word: inputValue, distance: guessDistance, rank: guessRank}]
+        let newGuesses = [...guesses, {guessNumber: guessNumber, word: inputValueLowerCase, distance: guessDistance, rank: guessRank}]
         newGuesses = newGuesses.sort((a, b) => b.distance - a.distance)
         setGuesses(newGuesses);
-        setGuessWords({...guessWords, [inputValue]: true});
+        setGuessWords({...guessWords, [inputValueLowerCase]: true});
         setGuessNumber(guessNumber + 1);
         setInputValue('');
     }
