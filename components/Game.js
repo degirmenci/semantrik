@@ -27,6 +27,9 @@ function Game({puzzleOftheDay}) {
     }
   
     const handleGuess = () => {
+        // Lower case and trim
+        inputValue = inputValue.toLowerCase().trim();
+
         if (inputValue === puzzleWord) {
             setIsGuessCorrect(true);
             setInputValue('');
