@@ -16,11 +16,13 @@ export default function Home({validWords, puzzleOftheDay}) {
 
 // Fetching data from the JSON file
 import fsPromises from 'fs/promises';
-import path from 'path'
+import path from 'path';
+import zlib from 'zlib';
+
 export async function getStaticProps() {
   const jsonDirectory = path.join(process.cwd(), 'json');
-  const jsonData = await fsPromises.readFile(jsonDirectory + '/data.json', 'utf8');
-  const objectData = JSON.parse(jsonData);
+  const jsonData = await fsPromises.readFile(jsonDirectory + '/data.json.gz');
+  const objectData = JSON.parse(zlib.gunzipSync(jsonData));
 
   // Feb 7, 2023 Game Epoch
   const epoch = new Date(2023, 1, 7)
