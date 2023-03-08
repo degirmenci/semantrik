@@ -11,16 +11,17 @@ export const FaqModal = ({ isOpen, handleClose }) => {
         <p className="text-left text-md text-gray-600 dark:text-gray-200">
             Semantrik her gün hedef kelimenin değiştiği bir bilmece oyunu. Tahmin ettiğiniz her kelimenin
             hedef kelimeye semantik uzaklığı hesaplanır ve bu sayede bulmacaya ne kadar yakın olduğunu görebilirsiniz. Bu
-            uzaklık kelimelerin cümlelerde ne kadar sıklıkta birlikte kullanıldığına göre hesaplanmaktadır.
+            uzaklık kelimelerin cümlelerde ne kadar sıklıkta birlikte kullanıldığına göre hesaplanmaktadır. Örneğin, "kedi"
+            ve "köpek" arasındaki semantik uzaklık, "kedi" ve "araba" arasındaki uzaklıktan daha yüksektir.
         </p>
 
         <p className="text-left py-2 font-bold text-md text-gray-900 dark:text-gray-200">
             Uzaklıklar nasıl hesaplandı?
         </p>
         <p className="text-left text-md text-gray-600 dark:text-gray-200">
-            Açık kaynak CC-100 (Common Crawl) Türkçe veri seti kullanılarak, word2vec modeli eğitildi. Bu model, her
+            Açık kaynak CC-100 (Common Crawl) Türkçe veri seti kullanılarak, word2vec dil modeli eğitildi. Bu model, her
             kelime için bir vektör oluşturdu ve bu vektörler arasındaki uzaklık kullanılarak 0 ile 100 arasında bir
-            benzerlik skoru hesaplandı.
+            benzerlik skoru hesaplandı. Yüksek benzerlik skoru, kelimenin hedef kelimeye yakın olduğunu gösterir.
         </p>
 
         <p className="text-left py-2 font-bold text-md text-gray-900 dark:text-gray-200">
