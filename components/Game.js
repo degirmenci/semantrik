@@ -92,7 +92,7 @@ function Game({puzzleOftheDay}) {
             )}
 
             {isGuessCorrect && (
-                <div className="font-bold p-4"> Tebrikler! Günün kelimesi "{puzzleWord}", {guessNumber} denemede buldun.</div>
+                <div className="font-bold p-4"> Tebrikler! Günün kelimesi {puzzleWord}, {guessNumber} denemede buldun.</div>
             )}
 
             <table className="w-full p-12 py-2 text-left border-collapse border-2 rounded-full">
