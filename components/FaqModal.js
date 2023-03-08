@@ -12,7 +12,7 @@ export const FaqModal = ({ isOpen, handleClose }) => {
             Semantrik her gün hedef kelimenin değiştiği bir bilmece oyunu. Tahmin ettiğiniz her kelimenin
             hedef kelimeye semantik benzerlik skoru hesaplanır ve bu sayede bulmacaya ne kadar yakın olduğunu görebilirsiniz. Bu
             skor kelimelerin cümleler ve dökümanlarda ne kadar sıklıkta birlikte kullanıldığına göre hesaplanmaktadır. Örneğin, "araba"
-            ve "yarış" arasındaki semantik benzerlik skoru, "araba" ve "kedı" arasındaki benzerlik skorundan daha yüksektir.
+            ve "yarış" arasındaki semantik benzerlik skoru, "araba" ve "kedi" arasındaki benzerlik skorundan daha yüksektir.
         </p>
 
         <p className="text-left py-2 font-bold text-md text-gray-900 dark:text-gray-200">
