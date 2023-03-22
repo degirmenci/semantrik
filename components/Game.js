@@ -8,6 +8,8 @@ function Game({puzzleOftheDay}) {
     const [inputValue, setInputValue] = useState('');
     const [isGuessValid, setIsGuessValid] = useState(true);
     const [isGuessCorrect, setIsGuessCorrect] = useState(false);
+    const totalHints = 5;
+    const [hintsLeft, setHintsLeft] = useState(totalHints);
 
     const puzzleWord = puzzleOftheDay.word;
 
@@ -15,11 +17,15 @@ function Game({puzzleOftheDay}) {
     const distanceToClosest = puzzleOftheDay.distances[1]
     const distanceToHundredthClosest = puzzleOftheDay.distances[100]
 
+
     // Feb 8, 2023 Game Epoch
     const epoch = new Date(2023, 1, 8)
     const start = new Date(epoch)
     const today = new Date()
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
     today.setHours(0, 0, 0, 0)
+    yesterday.setHours(0, 0, 0, 0)
     let puzzleIndex = 1
     while (start < today) {
         puzzleIndex++
@@ -70,6 +76,37 @@ function Game({puzzleOftheDay}) {
         }
     };
 
+    const findHintWord = (bestRank) => {
+        let hintWord = ''
+        for (const [word, data] of Object.entries(similarWords)) {
+            if (data['rank'] < bestRank && data['rank'] > bestRank / 2) {
+                return word
+            }
+        }
+        return hintWord
+    }
+
+    const handleHint = () => {
+        if (hintsLeft === 0) {
+            return
+        }
+
+        let bestRank = Object.keys(similarWords).length
+
+        if (guesses.length > 0) {
+            bestRank = guesses[0].rank
+        }
+        let hintWord = findHintWord(bestRank)
+        const hintDistance = similarWords[hintWord]['distance']
+        const hintRank = similarWords[hintWord]['rank']
+        let newGuesses = [...guesses, {guessNumber: "💡", word: hintWord, distance: hintDistance, rank: hintRank}]
+        newGuesses = newGuesses.sort((a, b) => b.distance - a.distance)
+        setGuesses(newGuesses);
+        setGuessWords({...guessWords, [hintWord]: true});
+
+        setHintsLeft(hintsLeft - 1);
+    }
+
       
     return (
         <div className="items-center justify-center py-10 px-4 text-center">
@@ -85,7 +122,15 @@ function Game({puzzleOftheDay}) {
                  hover:bg-blue-600 transition-colors duration-300" onClick={() => handleGuess()}>
                     Tahmin et
                 </button>
+                <button className="w-full md:w-3/12 max-w-xs px-4 py-2 rounded-full bg-blue-500 text-white font-medium
+                 hover:bg-blue-600 transition-colors duration-300"
+                 disabled={hintsLeft <= 0 ? true : false}
+                 onClick={() => handleHint()}>
+                    İpucu al ({hintsLeft}/{totalHints})
+                </button>
             </div>
+
+            {}
 
             {!isGuessValid && (
                 <p className="mb-4 font-bold"> Kelime geçerli değil.</p>
